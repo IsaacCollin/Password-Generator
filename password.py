@@ -1,15 +1,15 @@
 # imports all the nessaserry functions 
-from pandas import read_csv
+import pandas as pd
 from random import randint, randrange
 
 
 def csvReader ():
 
     # generates the 3 numbers for the csv file
-    ran = [randrange (0, 423964) for i in range (3)]
+    ran = [randrange (0, 423963) for i in range (3)]
     # makes the csv into a table 
     global dataFrame
-    dataFrame = read_csv ("pass.csv")
+    dataFrame = pd.read_csv ("pass.csv")
     
     #chooses the word depending on the row there in
     wordOne = dataFrame.iloc[ran, 1].values[0]
@@ -27,22 +27,24 @@ def csvReader ():
 
 
 def filler ():
-    acceptance = input ("does this password work well for you? Please input 'YES' or 'NO' \n\n")
-    if acceptance == 'YES':
+    acceptance = input ("does this password work well for you? Please input 'yes' or 'no' \n\n")
+    acceptance = acceptance.lower()
+    if acceptance == 'yes':
 
         # asks the user if the program worked or not
         yesOrNo = input ("\nIs the program working correctly if so enter 'YES' "
-                        "else enter 'NO' \n\n")
+                        "else enter 'no' \n\n")
+        yesOrNo = yesOrNo.lower()
         done = False
         while done != True:
 
-            if yesOrNo == "YES":
+            if yesOrNo == 'yes':
                 print ("\n~~~~~~~~~~~~~~~~~~\n")
                 print ("Program as ended")
                 print ("\n~~~~~~~~~~~~~~~~~~")
                 done = True
 
-            elif yesOrNo == "NO":
+            elif yesOrNo == 'no':
                 print ("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                         "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n")
                 print ("This will print the csv and check that the random number generator,"
@@ -53,10 +55,9 @@ def filler ():
                 break
 
             else:  
-                print ("Enter either 'YES'/'NO' \n")
-                break
+                print ("Enter either 'yes'/'no' \n")
 
-    elif acceptance == 'NO':
+    elif acceptance == 'no':
         csvReader()
         passGen()
         filler()
@@ -74,9 +75,11 @@ def passGen ():
     listRandom = randint (0, 20)
     list = ["!", "£", "$", "€", "%", "^", "&", "*", "(", ")",
             ",", ".", "<", ">", "/", "?", "'", "@", "#", "~"]
+
+    combinedString = f"{capWordOne}{capWordTwo}{capWordThree}{strRandomNum}{list[listRandom]}"
     
     print ("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
-    print (capWordOne + capWordTwo + capWordThree + strRandomNum + list[listRandom])
+    print (combinedString)
     print ("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
     
 
